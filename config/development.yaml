@@ -1,0 +1,60 @@
+# Development environment configuration
+# This config inherits from default.yaml and overrides specific settings
+
+# @package _global_
+
+# Inherit from default configuration  
+defaults:
+  - default
+  - _self_
+
+# Command line arguments  
+command: "run"
+instruction: "Create a hello world Python program"
+
+# Enhanced logging for development
+logging:
+  level: "DEBUG"
+  format: "detailed"
+  console: true
+  colorize: true
+  # Optional: Enable file logging for development debugging
+  # file: "logs/development.log"
+
+# VM settings optimized for development
+vm:
+  memory_mb: 512
+  vcpus: 1
+  # Faster timeout for quicker iteration during development
+  timeout: 30
+  network_cidr: "172.50.0.0/24"
+  boot_timeout: 10
+  shutdown_timeout: 10
+
+# OpenAI settings for development
+openai:
+  model: "gpt-3.5-turbo"
+  max_tokens: 500
+  temperature: 0.7
+  # Lower timeout for faster failure detection during development
+  timeout: 15
+
+# More verbose task processing
+tasks:
+  default_timeout: 30
+  max_retries: 1  # Fail faster during development
+  cleanup_temp_files: true
+
+# Development-friendly result settings
+results:
+  save_json: true
+  save_code: true
+  # More descriptive filenames for development
+  filename_template: "dev_{vm_id}_{task_description}"
+  max_filename_length: 50
+
+# Network settings for development
+network:
+  tap_prefix: "tap"
+  ip_forward: true
+  cleanup_on_exit: true  # Always cleanup during development

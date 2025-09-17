@@ -1,0 +1,68 @@
+# Default configuration for Firecracker OpenAI Code Generator
+# This file contains the base configuration that can be overridden
+# by environment-specific configs or command-line arguments
+
+# Command line arguments
+command: "run"
+instruction: "Create a hello world Python program"
+
+# VM Configuration
+vm:
+  memory_mb: 512
+  vcpus: 1
+  timeout: 60
+  network_cidr: "172.50.0.0/24"
+  boot_timeout: 15
+  shutdown_timeout: 10
+
+# Directory paths (relative to project root)
+paths:
+  vm_images: "vm-images"
+  ubuntu_images: "vm-images-ubuntu"
+  shared: "shared"
+  results: "results"
+  temp: "/tmp"
+
+# OpenAI API Configuration  
+openai:
+  model: "gpt-3.5-turbo"
+  max_tokens: 500
+  temperature: 0.7
+  timeout: 30
+  # api_key should be provided via environment variable OPENAI_API_KEY
+  # or command line override for security
+
+# Logging Configuration
+logging:
+  level: "INFO"           # DEBUG, INFO, WARNING, ERROR
+  format: "detailed"      # simple, detailed, json
+  console: true           # Enable console output
+  file: null              # Optional log file path (null = no file logging)
+  rotation: "100 MB"      # Log file rotation size
+  retention: "30 days"    # How long to keep old log files
+  colorize: true          # Enable colored output (auto-detected for terminals)
+
+# Firecracker-specific settings
+firecracker:
+  binary_path: "firecracker"  # Path to firecracker binary (should be in PATH)
+  socket_dir: "/tmp"          # Directory for API sockets
+  log_dir: "logs"             # Directory for VM logs
+  
+# Network configuration
+network:
+  tap_prefix: "tap"           # Prefix for TAP interface names
+  ip_forward: true            # Enable IP forwarding
+  cleanup_on_exit: true       # Clean up network resources on exit
+
+# Task processing settings
+tasks:
+  default_timeout: 60         # Default task timeout in seconds
+  max_retries: 3              # Maximum retries for failed tasks
+  cleanup_temp_files: true    # Clean up temporary files after completion
+  
+# Results storage settings
+results:
+  save_json: true             # Save full result metadata as JSON
+  save_code: true             # Extract and save code files separately  
+  filename_template: "{vm_id}_{task_description}"  # Template for result filenames
+  max_filename_length: 50     # Maximum length for generated filenames

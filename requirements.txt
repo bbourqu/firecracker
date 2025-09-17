@@ -1,0 +1,19 @@
+# Firecracker OpenAI Code Generator Dependencies
+
+# Configuration Management
+hydra-core>=1.3.0
+omegaconf>=2.3.0
+
+# Enhanced Logging
+loguru>=0.7.0
+
+# Core Python Dependencies (already available but explicit)
+# These are typically built-in or standard requirements
+pyyaml>=6.0
+pathlib2>=2.3.7; python_version < "3.4"
+
+# Optional: Enhanced development dependencies
+# Uncomment if needed for development
+# black>=22.0.0          # Code formatting
+# pytest>=7.0.0          # Testing framework
+# mypy>=1.0.0            # Type checking
