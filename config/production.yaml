@@ -1,0 +1,67 @@
+# Production environment overrides  
+# This file overrides default.yaml settings for production deployment
+
+# @package _global_
+
+# Production-optimized VM settings
+vm:
+  memory_mb: 1024         # More memory for production workloads
+  vcpus: 2               # More CPU cores for better performance
+  timeout: 120           # Longer timeout for complex tasks
+  boot_timeout: 30       # More time for VM startup in production
+  shutdown_timeout: 15   # Graceful shutdown timeout
+
+# Production logging - structured and persistent
+logging:
+  level: "WARNING"       # Only log warnings and errors in production
+  format: "json"         # Structured JSON logs for log aggregation
+  console: true
+  colorize: false        # No colors for production logs
+  file: "/var/log/firecracker/app.log"  # Persistent log file
+  rotation: "500 MB"     # Larger log files
+  retention: "90 days"   # Keep logs longer in production
+
+# OpenAI settings for production reliability
+openai:
+  timeout: 60           # Longer timeout for production reliability
+  max_tokens: 1000      # Allow longer responses
+  temperature: 0.5      # More deterministic outputs for production
+
+# Production task processing
+tasks:
+  default_timeout: 180   # Longer timeout for complex production tasks
+  max_retries: 5        # More retries for production reliability
+  cleanup_temp_files: true
+
+# Production paths - absolute paths for reliability
+paths:
+  vm_images: "/opt/firecracker/vm-images"
+  ubuntu_images: "/opt/firecracker/vm-images-ubuntu" 
+  shared: "/var/lib/firecracker/shared"
+  results: "/var/lib/firecracker/results"
+  temp: "/var/tmp/firecracker"
+
+# Production firecracker settings
+firecracker:
+  binary_path: "/usr/local/bin/firecracker"  # Explicit binary path
+  socket_dir: "/var/run/firecracker"         # Proper run directory
+  log_dir: "/var/log/firecracker/vms"       # VM-specific logs
+
+# Production network settings  
+network:
+  tap_prefix: "fc-prod"   # Production-specific interface prefix
+  ip_forward: true
+  cleanup_on_exit: true
+
+# Production result storage
+results:
+  save_json: true
+  save_code: true
+  filename_template: "prod_{timestamp}_{vm_id}_{task_description}"
+  max_filename_length: 80  # Longer filenames allowed in production
+
+# Production security settings (placeholders for future enhancements)
+security:
+  enable_selinux: false    # Could be enabled if SELinux is configured
+  restrict_network: false  # Could restrict network access per task
+  enable_audit: true       # Enable audit logging

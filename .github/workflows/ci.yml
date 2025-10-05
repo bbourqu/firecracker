@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    # keep the tests job as before; linting/typechecking is in a separate job below
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt.lock ]; then
+            pip install -r requirements.txt.lock
+          else
+            pip install -r requirements.txt
+          fi
+          if [ -f requirements-dev.txt.lock ]; then
+            pip install -r requirements-dev.txt.lock
+          elif [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt
+          fi
+          # Ensure optional packages required for integration tests are present
+          pip install fastapi watchfiles
+
+      - name: Run tests
+        run: |
+          pytest -q
+
+      - name: Run spec linter
+        run: |
+          python3 .specify/scripts/validate_spec.py specs/**/spec.md || true
+
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies (dev)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt.lock ]; then
+            pip install -r requirements.txt.lock
+          else
+            pip install -r requirements.txt
+          fi
+          if [ -f requirements-dev.txt.lock ]; then
+            pip install -r requirements-dev.txt.lock
+          elif [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt
+          fi
+
+      - name: Run black (check)
+        run: |
+          black --check .
+
+      - name: Run mypy
+        run: |
+          mypy --ignore-missing-imports .

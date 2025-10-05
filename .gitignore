@@ -1,0 +1,292 @@
+# Firecracker OpenAI Code Generator - .gitignore
+
+# =============================================================================
+# SECRETS AND CONFIGURATION
+# =============================================================================
+
+# Environment variables and API keys
+.env
+.env.local
+.env.production
+.env.staging
+*.env
+
+# OpenAI API keys and secrets
+openai_api_key
+api_key.txt
+secrets/
+config/secrets/
+
+# =============================================================================
+# FIRECRACKER AND VM FILES
+# =============================================================================
+
+# VM temporary files
+/tmp/vm-*.log
+/tmp/vm-*.err
+/tmp/vm-config-*.json
+/tmp/shared-*.ext4
+/tmp/shared-mount-*/
+/tmp/firecracker-*.socket
+
+# VM runtime directories
+vm-runtime/
+vm-temp/
+vm-logs/
+
+# Firecracker socket files
+*.socket
+firecracker-*.socket
+
+# =============================================================================
+# GENERATED RESULTS AND OUTPUT
+# =============================================================================
+
+# Results folder - ignore all generated content but keep directory structure
+results/*
+!results/.gitkeep
+output/
+generated/
+code-output/
+
+# Experiment logs
+experiment-*.log
+task-*.json
+result-*.json
+
+# =============================================================================
+# SYSTEM AND TEMPORARY FILES
+# =============================================================================
+
+# Linux temporary files
+/tmp/
+/var/tmp/
+*.tmp
+*.temp
+.temporary
+
+# System logs
+*.log
+*.log.*
+logs/
+syslog
+dmesg
+
+# Process IDs
+*.pid
+*.lock
+
+# Core dumps
+core
+core.*
+vgcore.*
+
+# =============================================================================
+# NETWORK AND MOUNT ARTIFACTS
+# =============================================================================
+
+# Network interface artifacts
+tap-*
+*.tap
+
+# Mount points
+mnt/
+mount-*/
+shared-mount-*/
+
+# Network configuration backups
+iptables-backup-*
+network-backup-*
+
+# =============================================================================
+# DEVELOPMENT AND EDITOR FILES
+# =============================================================================
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Vim files
+*.vim
+.*.swp
+.*.swo
+
+# =============================================================================
+# BACKUP AND ARCHIVE FILES
+# =============================================================================
+
+# Backup files
+*.bak
+*.backup
+*.orig
+*~
+.#*
+#*#
+
+# Archive files (unless specifically needed)
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+
+# Downloaded packages (will be re-downloaded by setup)
+*.deb
+*.rpm
+
+# =============================================================================
+# VM IMAGES AND LARGE BINARIES (OPTIONAL)
+# =============================================================================
+
+# Uncomment these if you want to exclude VM images from git
+# (they can be large and are downloadable)
+# vm-images*/
+# *.ext4
+# *.squashfs
+# vmlinux*
+# rootfs*
+
+# Firecracker binaries (downloadable via setup script)
+# release-*/
+# firecracker-*
+# *.tgz
+
+# =============================================================================
+# DOCUMENTATION BUILD FILES
+# =============================================================================
+
+# Generated documentation
+docs/_build/
+docs/build/
+site/
+
+# Markdown cache
+.mdx_cache/
+
+# =============================================================================
+# TESTING AND DEBUGGING
+# =============================================================================
+
+# Test outputs
+test-results/
+test-output/
+*.test
+coverage/
+.coverage
+htmlcov/
+
+# Debug files
+debug/
+debug-*
+*.debug
+gdb.txt
+strace.out
+
+# =============================================================================
+# SECURITY SCAN RESULTS
+# =============================================================================
+
+# Security scan outputs
+security-scan-*
+vulnerability-report-*
+*.sarif
+
+# =============================================================================
+# CUSTOM PATTERNS FOR THIS PROJECT
+# =============================================================================
+
+# Custom VM configurations (if sensitive)
+custom-vm-config*.json
+
+# User-specific task files
+my-tasks/
+user-tasks/
+personal-*/
+
+# Experimental features
+experimental/
+test-features/
+dev-only/
+
+# Performance profiling
+*.prof
+perf.data*
+flamegraph*
+
+# =============================================================================
+# OS SPECIFIC
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# NOTES
+# =============================================================================
+
+# Keep results folder structure but ignore contents (optional)
+# If you want to track the results folder structure but not the contents:
+# results/**/*
+# !results/
+# !results/.gitkeep
+
+# Keep example configurations
+# !config/example.env
+# !vm-images/README.md
+.github/prompts/
+.continue/
+vm-images-ubuntu/
+orphaned/
+vm-images-ubuntu/
+orphaned/
